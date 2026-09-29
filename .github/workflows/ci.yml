@@ -1,0 +1,50 @@
+name: CI 
+
+on: 
+  push: 
+    branches: 
+      - main
+
+env:
+  IMAGE_NAME: {{ secrets.DOCKER_USERNAME }}/Learning-Java
+
+jobs:
+  build: 
+    name: Build java app
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+      
+      - name: Check  version
+        run: java -version && mvn -version
+
+      - name: Build jar file
+        run: mvn clean package 
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: 
+            bipinchhetri01/learning-java:latest
+            bipinchhetri01/learning-java:${{ github.sha }}
+            bipinchhetri01/learning-java:${{ github.run_number }}
+
+      
+
