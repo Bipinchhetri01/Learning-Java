@@ -5,12 +5,10 @@ on:
     branches: 
       - main
 
-env:
-  IMAGE_NAME: "${{ secrets.DOCKER_USERNAME }}/learning-java"
-
 jobs:
   build: 
     name: Build java app
+    environment: learning-java
     runs-on: self-hosted
 
     steps:
