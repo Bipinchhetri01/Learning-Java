@@ -54,10 +54,10 @@ jobs:
     needs: build
     steps:
       - name: Checkout code
-          uses: actions/checkout@v4
+        uses: actions/checkout@v4
         
       - name: run docker compose
-          run: docker-compose up -d --build
+        run: docker-compose up -d --build
 
       
 
