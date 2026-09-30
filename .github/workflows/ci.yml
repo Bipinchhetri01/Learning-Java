@@ -42,7 +42,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: 
+          tags: |
+          
             bipinchhetri01/learning-java:latest
             bipinchhetri01/learning-java:${{ github.sha }}
             bipinchhetri01/learning-java:${{ github.run_number }}
