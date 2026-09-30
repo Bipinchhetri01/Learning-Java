@@ -48,15 +48,15 @@ jobs:
             bipinchhetri01/learning-java:${{ github.sha }}
             bipinchhetri01/learning-java:${{ github.run_number }}
 
-    deploy:
-      name: Deploy java app
-      runs-on: self-hosted
-      needs: build
-      steps:
-        - name: Checkout code
+  deploy:
+    name: Deploy java app
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: Checkout code
           uses: actions/checkout@v4
         
-        - name: run docker compose
+      - name: run docker compose
           run: docker-compose up -d --build
 
       
